@@ -1,0 +1,26 @@
+MARKET ANALYZER REPORT
+==================================================
+
+Fecha: 2026-09-18 16:04:39.398744
+
+Activo: ETH-USD
+Señal: LONG
+Confluencia: 65/100
+
+TRADE PLAN
+----------
+Entrada: 2634.65
+Stop: 2357.96
+TP1: 2911.34
+TP2: 3188.03
+TP3: 3326.38
+RR: 2.5
+
+BACKTEST V2
+-----------
+Trades: 37
+Win Rate: 43.24
+Profit Factor: 1.49
+Expectancy: 18.71
+Drawdown: 5.68
+Retorno: 6.92%

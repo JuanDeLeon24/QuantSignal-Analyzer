@@ -1,0 +1,26 @@
+MARKET ANALYZER REPORT
+==================================================
+
+Fecha: 2026-09-18 16:04:36.709626
+
+Activo: BTC-USD
+Señal: LONG
+Confluencia: 85/100
+
+TRADE PLAN
+----------
+Entrada: 81159.92
+Stop: 74944.59
+TP1: 87375.25
+TP2: 93590.58
+TP3: 96698.24
+RR: 2.5
+
+BACKTEST V2
+-----------
+Trades: 41
+Win Rate: 51.22
+Profit Factor: 2.93
+Expectancy: 1329.92
+Drawdown: 27.34
+Retorno: 545.27%
