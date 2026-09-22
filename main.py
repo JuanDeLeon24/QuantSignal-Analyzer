@@ -46,6 +46,18 @@ from backtesting.show_backtest import show_backtest
 from backtesting.advanced_backtest import advanced_backtest
 from backtesting.show_advanced_backtest import show_advanced_backtest
 
+from structure.order_blocks import detect_order_blocks
+from structure.show_order_blocks import show_order_blocks
+
+from structure.liquidity import detect_liquidity
+from structure.show_liquidity import show_liquidity
+
+from structure.fvg import detect_fvg
+from structure.show_fvg import show_fvg
+
+from structure.premium_discount import get_pd_zone
+from structure.show_pd_zone import show_pd_zone
+
 from backtesting.advanced_backtest_v2 import advanced_backtest_v2
 from backtesting.show_advanced_backtest_v2 import (
     show_advanced_backtest_v2
@@ -190,6 +202,22 @@ def analizar_activo(SYMBOL):
     bos = detect_bos(df)
 
     choch = detect_choch(df)
+
+    order_blocks = detect_order_blocks(df)
+
+    liquidity = detect_liquidity(df)
+
+    fvg = detect_fvg(df)
+
+    pd_zone = get_pd_zone(df)
+
+    show_order_blocks(order_blocks)
+
+    show_liquidity(liquidity)
+
+    show_fvg(fvg)
+
+    show_pd_zone(pd_zone)
 
     support = get_support(df)
 
