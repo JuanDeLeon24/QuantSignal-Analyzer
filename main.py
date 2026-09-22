@@ -1,3 +1,4 @@
+
 from config.settings import *
 
 from data.data_loader import load_data
@@ -70,6 +71,11 @@ from dashboard.history_dashboard import (
     create_history_dashboard
 )
 
+from paper_trading.trade_manager import (
+    open_virtual_trade
+)
+
+
 def seleccionar_activo():
 
     activos = {
@@ -104,7 +110,7 @@ def seleccionar_activo():
                 )
             )
 
-            if opcion in [0,1, 2, 3, 4, 5, 6]:
+            if opcion in [0, 1, 2, 3, 4, 5, 6]:
 
                 return opcion, activos
 
@@ -266,13 +272,29 @@ def analizar_activo(SYMBOL):
     # RESULTADO
     # =====================
 
-    print("\n=========== RESULTADO ===========")
+    print(
+        "\n=========== RESULTADO ==========="
+    )
 
-    print("Tendencia  :", trend)
-    print("Estructura :", market_structure)
+    print(
+        "Tendencia  :",
+        trend
+    )
 
-    print("BOS        :", bos)
-    print("CHOCH      :", choch)
+    print(
+        "Estructura :",
+        market_structure
+    )
+
+    print(
+        "BOS        :",
+        bos
+    )
+
+    print(
+        "CHOCH      :",
+        choch
+    )
 
     print(
         "Soporte    :",
@@ -308,7 +330,9 @@ def analizar_activo(SYMBOL):
     # TRADE PLAN
     # =====================
 
-    print("\n=========== TRADE PLAN ===========")
+    print(
+        "\n=========== TRADE PLAN ==========="
+    )
 
     print(
         "Entrada     :",
@@ -552,6 +576,10 @@ def analizar_activo(SYMBOL):
 
         probability = "BAJA"
 
+    # =====================
+    # RECOMENDACION
+    # =====================
+
     show_recommendation(
         SYMBOL,
         signal,
@@ -561,6 +589,22 @@ def analizar_activo(SYMBOL):
     )
 
     # =====================
+    # PAPER TRADING
+    # =====================
+
+    if (
+        probability in ["MUY ALTA", "EXTREMA"]
+        and
+        advanced_v2_result["profit_factor"] >= 1.8
+    ):
+
+        open_virtual_trade(
+            SYMBOL,
+            signal,
+            trade_plan
+        )
+
+    # =====================
     # JOURNAL
     # =====================
 
@@ -568,11 +612,10 @@ def analizar_activo(SYMBOL):
         SYMBOL,
         signal,
         probability,
-        trade_plan,
+        trade_plan
     )
 
     create_history_dashboard()
-
 
     # =====================
     # REPORTE TXT
@@ -594,13 +637,17 @@ def analizar_activo(SYMBOL):
         advanced_v2_result
     )
 
+
 if __name__ == "__main__":
 
     while True:
 
         opcion, activos = seleccionar_activo()
 
+        # =====================
         # SALIR
+        # =====================
+
         if opcion == 0:
 
             print(
@@ -609,7 +656,10 @@ if __name__ == "__main__":
 
             break
 
+        # =====================
         # ANALIZAR TODOS
+        # =====================
+
         elif opcion == 6:
 
             for simbolo in activos.values():
@@ -630,7 +680,10 @@ if __name__ == "__main__":
                     simbolo
                 )
 
+        # =====================
         # ACTIVO INDIVIDUAL
+        # =====================
+
         else:
 
             analizar_activo(

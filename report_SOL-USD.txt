@@ -1,7 +1,7 @@
 MARKET ANALYZER REPORT
 ==================================================
 
-Fecha: 2026-09-18 16:04:41.975760
+Fecha: 2026-09-18 17:20:53.117150
 
 Activo: SOL-USD
 Señal: LONG
@@ -9,11 +9,11 @@ Confluencia: 100/100
 
 TRADE PLAN
 ----------
-Entrada: 113.56
+Entrada: 113.38
 Stop: 98.63
-TP1: 128.49
-TP2: 143.43
-TP3: 150.9
+TP1: 128.13
+TP2: 142.89
+TP3: 150.27
 RR: 2.5
 
 BACKTEST V2
