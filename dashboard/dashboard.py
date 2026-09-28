@@ -1,70 +1,43 @@
 import matplotlib
 matplotlib.use("Agg")
 
-from dashboard.equity_curve import (
-    create_equity_curve
-)
+from config.settings import CHARTS_DIR, ensure_dirs
 
-from dashboard.drawdown_chart import (
-    create_drawdown_chart
-)
-
-from dashboard.performance_panel import (
-    create_performance_panel
-)
+from dashboard.equity_curve import create_equity_curve
+from dashboard.drawdown_chart import create_drawdown_chart
+from dashboard.performance_panel import create_performance_panel
 
 
-def generate_dashboard(
-    result
-):
+def generate_dashboard(result, symbol="backtest"):
+    """
+    Genera graficas del backtest usando la curva de equity REAL
+    (antes se dibujaba una linea recta interpolada).
+    """
 
-    trades = result["trades"]
+    ensure_dirs()
 
-    equity_values = []
+    safe = str(symbol).replace("/", "_")
 
-    capital = 10000
+    equity_values = result.get("equity_curve") or [result.get("equity", 0)]
+    drawdowns = result.get("drawdown_curve") or [0]
 
-    step = (
-        result["equity"] - 10000
-    ) / max(1, trades)
+    paths = [
+        create_equity_curve(
+            equity_values, CHARTS_DIR / f"equity_curve_{safe}.png",
+            title=f"Equity Curve - {symbol}"
+        ),
+        create_drawdown_chart(
+            drawdowns, CHARTS_DIR / f"drawdown_{safe}.png",
+            title=f"Drawdown - {symbol}"
+        ),
+        create_performance_panel(
+            result, CHARTS_DIR / f"performance_{safe}.png"
+        ),
+    ]
 
-    for _ in range(trades):
+    print("\n✅ Dashboard generado")
 
-        capital += step
+    for p in paths:
+        print("  ", p)
 
-        equity_values.append(
-            capital
-        )
-
-    drawdowns = [
-
-        result["max_drawdown"]
-    ] * max(1, trades)
-
-    create_equity_curve(
-        equity_values
-    )
-
-    create_drawdown_chart(
-        drawdowns
-    )
-
-    create_performance_panel(
-        result
-    )
-
-    print(
-        "\n✅ Dashboard generado"
-    )
-
-    print(
-        "equity_curve.png"
-    )
-
-    print(
-        "drawdown_chart.png"
-    )
-
-    print(
-        "performance_panel.png"
-    )
+    return paths

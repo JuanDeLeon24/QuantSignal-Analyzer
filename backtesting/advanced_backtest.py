@@ -115,7 +115,9 @@ def advanced_backtest(df):
                 df["Close"].iloc[future_limit]
             )
 
-            pnl = close_out - entry
+            # PnL escalado al riesgo (antes se sumaba la diferencia de precio
+            # de 1 unidad, lo que inflaba el resultado en activos caros)
+            pnl = risk_amount * (close_out - entry) / (entry - stop)
 
             equity += pnl
 

@@ -1,0 +1,13 @@
+__pycache__/
+*.pyc
+.venv/
+venv/
+.pytest_cache/
+
+# Datos generados
+outputs/
+models/*.joblib
+
+# La bitacora es TU dato: si quieres versionarla quita esta linea
+storage/
+config/user_settings.json

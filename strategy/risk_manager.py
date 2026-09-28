@@ -1,3 +1,21 @@
+def signal_direction(signal):
+    """
+    Convierte la senal textual en direccion operable.
+    "LONG" y "LONG FUERTE" -> LONG ; "SHORT" y "SHORT FUERTE" -> SHORT ;
+    cualquier otra ("ESPERAR") -> NONE
+    """
+
+    signal = str(signal).upper()
+
+    if signal.startswith("LONG"):
+        return "LONG"
+
+    if signal.startswith("SHORT"):
+        return "SHORT"
+
+    return "NONE"
+
+
 def calculate_trade_plan(
     entry,
     support,
@@ -9,15 +27,21 @@ def calculate_trade_plan(
     rr = 2.5
 
     entry = float(entry)
-    support = float(support)
-    resistance = float(resistance)
     atr = float(atr)
+
+    support = float(support) if support is not None else entry - atr * 2
+    resistance = float(resistance) if resistance is not None else entry + atr * 2
+
+    direction = signal_direction(signal)
+
+    # Si la senal es ESPERAR se calcula un plan LONG solo como referencia
+    plan_side = "SHORT" if direction == "SHORT" else "LONG"
 
     # ==================================
     # LONG
     # ==================================
 
-    if signal == "LONG":
+    if plan_side == "LONG":
 
         stop = min(
             support,
@@ -64,6 +88,10 @@ def calculate_trade_plan(
         tp3 = entry - (risk * rr)
 
     return {
+
+        "direction": direction,
+
+        "plan_side": plan_side,
 
         "entry": round(entry, 2),
 

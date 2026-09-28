@@ -1,5 +1,7 @@
 from datetime import datetime
 
+from config.settings import REPORTS_DIR, ensure_dirs
+
 
 def export_report(
     symbol,
@@ -9,8 +11,10 @@ def export_report(
     backtest
 ):
 
+    ensure_dirs()
+
     file_name = (
-        f"report_{symbol}.txt"
+        REPORTS_DIR / f"report_{symbol}.txt"
     )
 
     with open(
